@@ -12,6 +12,7 @@ router.get('/:id', TaskController.show);
 router.delete('/:id', TaskController.delete);
 
 router.get('/filter/all', MacaddressValidation, TaskController.all);
+router.put('/:id/:done', TaskController.done);
 
 
 
