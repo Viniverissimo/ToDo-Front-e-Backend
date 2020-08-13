@@ -1,6 +1,7 @@
 const TaskModel = require('../model/TaskModel');
 const { response } = require('express');
 const { update } = require('../model/TaskModel');
+const current = new Date();
 
 class TaskController {
 
@@ -60,7 +61,8 @@ class TaskController {
     }
 
     async done(req, res){
-        await TaskModel.findByIdAndUpdate({'_id': req.params.id},
+        await TaskModel.findByIdAndUpdate({
+        '_id': req.params.id},
         {'done': req.params.done},
         {new: true})
         .then(response =>{
@@ -69,6 +71,21 @@ class TaskController {
         .catch(error =>{
             return res.status(500).json(error);
         });
+    }
+
+    async late(req, res){
+        await TaskModel
+        .find({
+        'when': {'$lt': current},
+        'macaddress':{'$in': req.body.macaddress}
+    })
+    .sort('when')
+    .then(response =>{
+        return res.status(200).json(response);
+    })
+    .catch(error =>{
+        return res.status(500).json(error);
+    });
     }
 
 }
