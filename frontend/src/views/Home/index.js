@@ -1,7 +1,10 @@
 import React from 'react';
 
+//NOSSOS COMPONENTES
+import Header from '../../components/Header';
+
 function Home() {
-    return <h1>BEM VINDO A HOME!</h1>
+    return <Header/>
 }
 
 export default Home;
